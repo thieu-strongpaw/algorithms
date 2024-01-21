@@ -1,17 +1,6 @@
 #include <stdio.h>
-#define array_size 10
+#include "Insertion_Sort.h"
 
-void insertion_sort(int *array, int arr_size);
-
-int main(){
-	int int_array[array_size] = {3,4,67,44,2,7,4,54,23,1};
-
-	insertion_sort(int_array, array_size);
-
-	for(size_t i = 0; i < array_size; ++i){
-		printf("%ld element is %d\n", i, int_array[i]);
-	}
-}
 
 void insertion_sort(int *array, int arr_size){
 	size_t i, j, key;
