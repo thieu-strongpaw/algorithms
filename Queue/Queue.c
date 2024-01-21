@@ -1,10 +1,31 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "Queue.h"
 
 
+struct Queue* create_queue(int len){
+	struct Queue *new_queue = malloc(sizeof(struct Queue));
+	if( new_queue == NULL){
+		fprintf(stderr, "ERROR: Memory allocation failed\n");
+		exit(EXIT_FAILURE);
+	}
+
+	new_queue->queue = malloc(len * sizeof(int));
+	if(new_queue->queue == NULL){
+		fprintf(stderr, "ERROR: Memory allocation failed\n");
+		free(new_queue);
+		exit(EXIT_FAILURE);
+	}
+
+	new_queue->queue_len = len;
+	new_queue->head = 0;
+	new_queue->tail = 0;
+	return new_queue;
+}
+
 void print_q(struct Queue *q){
 	printf("Queue:\n");
-	for(int i = 0; i < 15; i++){
+	for(int i = 0; i < q->queue_len; i++){
 		printf("%d:  %d\n", i+1, q->queue[i]);
 	}
 };
@@ -12,7 +33,7 @@ void print_q(struct Queue *q){
 
 void enqueue(struct Queue *q, int x){
 	q->queue[q->tail] = x;
-	if(q->tail == 14){
+	if(q->tail == q->queue_len){
 		q->tail = 0;
 	}else{
 		q->tail = q->tail + 1;
@@ -22,10 +43,20 @@ void enqueue(struct Queue *q, int x){
 
 int dequeue(struct Queue *q){
 	int x = q->queue[q->head];
-	if(q->head == 14){
+	if(q->head == q->queue_len){
 		q->head = 0;
 	}else{
 		q->head = q->head + 1;
 	}
 	return x;
 };
+
+
+void free_queue(struct Queue *q){
+	if(q != NULL){
+		if(q->queue != NULL){
+			free(q->queue);
+		}
+		free(q);
+	}
+}
