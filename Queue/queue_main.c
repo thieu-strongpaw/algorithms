@@ -7,14 +7,14 @@
 
 int main(){
 
-	struct Queue *queue = create_queue(17); 
+	struct Queue *queue = create_queue(1); 
 	
 	enqueue(queue, 1);
 	enqueue(queue, 2);
+	int return_value = dequeue(queue);
 	enqueue(queue, 3);
 	
 	
-	int return_value = dequeue(queue);
 	printf("Dequeue value = %d\n", return_value);
 
 	print_q(queue);

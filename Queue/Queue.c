@@ -20,6 +20,7 @@ struct Queue* create_queue(int len){
 	new_queue->queue_len = len;
 	new_queue->head = 0;
 	new_queue->tail = 0;
+	new_queue->overflow_flag = 0;
 	return new_queue;
 }
 
@@ -32,11 +33,18 @@ void print_q(struct Queue *q){
 
 
 void enqueue(struct Queue *q, int x){
+	if(q->overflow_flag != 0){
+		fprintf(stderr, "ERROR: Queue Overflow\n");
+		exit(EXIT_FAILURE);
+	}
 	q->queue[q->tail] = x;
 	if(q->tail == q->queue_len){
 		q->tail = 0;
 	}else{
 		q->tail = q->tail + 1;
+	}
+	if(q->tail == q->head){
+		q->overflow_flag = 1;
 	}
 };
 
@@ -47,6 +55,9 @@ int dequeue(struct Queue *q){
 		q->head = 0;
 	}else{
 		q->head = q->head + 1;
+	}
+	if(q->head == (q->tail + 1)){
+		q->overflow_flag = 0;
 	}
 	return x;
 };

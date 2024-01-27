@@ -7,6 +7,7 @@ struct Queue {
 	int head;
 	int tail;
 	int queue_len;
+	int overflow_flag;
 };
 
 struct Queue* create_queue(int len);
