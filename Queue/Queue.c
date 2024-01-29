@@ -17,7 +17,7 @@ struct Queue* create_queue(int len){
 		exit(EXIT_FAILURE);
 	}
 
-	new_queue->queue_len = len;
+	new_queue->queue_len = len - 1;
 	new_queue->head = 0;
 	new_queue->tail = 0;
 	new_queue->overflow_flag = 0;
@@ -26,7 +26,7 @@ struct Queue* create_queue(int len){
 
 void print_q(struct Queue *q){
 	printf("Queue:\n");
-	for(int i = 0; i < q->queue_len; i++){
+	for(int i = 0; i <= q->queue_len; i++){
 		printf("%d:  %d\n", i+1, q->queue[i]);
 	}
 };
@@ -50,14 +50,21 @@ void enqueue(struct Queue *q, int x){
 
 
 int dequeue(struct Queue *q){
+	if(q->overflow_flag != 0 || q->head == q->tail){
+		fprintf(stderr, "ERROR: Queue Underflow\n");
+		exit(EXIT_FAILURE);
+	}
 	int x = q->queue[q->head];
 	if(q->head == q->queue_len){
 		q->head = 0;
 	}else{
 		q->head = q->head + 1;
 	}
-	if(q->head == (q->tail + 1)){
+	if(q->head == (q->tail + 1)){ 
 		q->overflow_flag = 0;
+	}
+	if(q->head == q->tail){
+		q->overflow_flag = 1;
 	}
 	return x;
 };

@@ -7,12 +7,15 @@
 
 int main(){
 
-	struct Queue *queue = create_queue(1); 
+	struct Queue *queue = create_queue(5); 
 	
 	enqueue(queue, 1);
 	enqueue(queue, 2);
-	int return_value = dequeue(queue);
 	enqueue(queue, 3);
+	enqueue(queue, 4);
+	int return_value = dequeue(queue);
+	enqueue(queue, 5);
+	enqueue(queue, 6);
 	
 	
 	printf("Dequeue value = %d\n", return_value);
