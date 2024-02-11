@@ -19,5 +19,6 @@ void List_Print(struct LList L);
 
 void Free_List(struct LList *L);
 
+struct node *Search_List(struct LList *L, int key);
 
 #endif

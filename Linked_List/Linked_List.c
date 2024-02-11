@@ -42,3 +42,13 @@ void Free_List(struct LList *L){
 	}
 	L->head = NULL;
 }
+
+struct node *Search_List(struct LList *L, int key){
+	struct node *scaned_node;
+	scaned_node = L->head;
+	while(scaned_node != NULL && scaned_node->key != key){
+		scaned_node = scaned_node->next;
+	}
+	return scaned_node;
+}
+
